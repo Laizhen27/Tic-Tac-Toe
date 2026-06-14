@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tic Tac Toe</title>
+ <link rel="stylesheet" href="style.css">
+
+
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+
+<h1>Tic Tac Toe</h1>
+<p class="subtitle">Classic · Reimagined</p>
+
+<!-- SCREEN: Main Menu -->
+<div class="screen active" id="screen-menu">
+  <div class="mode-cards">
+    <div class="mode-card" onclick="clickOnePlayer()">
+      <div class="icon">🤖</div>
+      <div class="label">1 Player</div>
+      <div class="desc">vs Bot</div>
+    </div>
+    <div class="mode-card" onclick="clickTwoPlayer()">
+      <div class="icon">👥</div>
+      <div class="label">2 Players</div>
+      <div class="desc">Local Co-op</div>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN: Player Names (2P) -->
+<div class="screen" id="screen-names">
+  <div class="diff-title" style="margin-bottom:20px;">Who's playing?</div>
+  <div class="name-form">
+    <div class="name-field">
+      <label>Player X (first turn)</label>
+      <input type="text" id="name-p1" placeholder="Enter name…" maxlength="16" />
+    </div>
+    <div class="name-field">
+      <label>Player O</label>
+      <input type="text" id="name-p2" placeholder="Enter name…" maxlength="16" />
+    </div>
+  </div>
+  <div style="display:flex;gap:10px;">
+    <button class="btn btn-ghost" onclick="showScreen('screen-menu')">← Back</button>
+    <button class="btn btn-primary" onclick="startTwoPlayer()">Let's Play!</button>
+  </div>
+</div>
+
+<!-- SCREEN: Difficulty Select -->
+<div class="screen" id="screen-diff">
+  <div class="diff-title">Choose Difficulty</div>
+  <div class="diff-cards">
+    <div class="diff-card" id="d-easy" onclick="selectDiff('easy')">
+      <div class="d-icon">🐣</div>
+      <div class="d-name">Easy</div>
+      <div class="d-pts" id="pts-easy">0 pts</div>
+      <div class="d-hint">Bot lets you win</div>
+    </div>
+    <div class="diff-card" id="d-medium" onclick="selectDiff('medium')">
+      <div class="d-icon">🦊</div>
+      <div class="d-name">Medium</div>
+      <div class="d-pts" id="pts-medium">0 pts</div>
+      <div class="d-hint">Defends then goes random</div>
+    </div>
+    <div class="diff-card" id="d-hard" onclick="selectDiff('hard')">
+      <div class="d-icon">💀</div>
+      <div class="d-name">Hard</div>
+      <div class="d-pts" id="pts-hard">0 pts</div>
+      <div class="d-hint">Impossible to beat</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:10px;">
+    <button class="btn btn-ghost" onclick="showScreen('screen-menu')">← Back</button>
+    <button class="btn btn-primary" id="start-btn" onclick="startOnePlayer()" disabled>Start Game</button>
+  </div>
+</div>
+
+<!-- SCREEN: Game -->
+<div class="screen" id="screen-game">
+  <div class="scoreboard">
+    <div class="score-box x-box" id="score-x">
+      <div class="s-label">Player</div>
+      <div class="s-name" id="name-x-display">X</div>
+      <div class="s-score" id="val-x">0</div>
+    </div>
+    <div class="score-box draw-box">
+      <div class="s-label">Draw</div>
+      <div class="s-name">—</div>
+      <div class="s-score" id="val-draw">0</div>
+    </div>
+    <div class="score-box o-box" id="score-o">
+      <div class="s-label" id="label-o">Bot</div>
+      <div class="s-name" id="name-o-display">🤖</div>
+      <div class="s-score" id="val-o">0</div>
+    </div>
+  </div>
+
+  <div class="board-wrap">
+    <div class="board" id="board"></div>
+  </div>
+
+  <div class="status-bar" id="status">X's turn</div>
+
+  <div class="game-btns">
+    <button class="btn btn-ghost" onclick="clickMenu()">☰ Menu</button>
+    <button class="btn btn-ghost" id="btn-change-diff" onclick="clickChangeDiff()" style="display:none;">🎯 Difficulty</button>
+    <button class="btn btn-primary" onclick="resetRound()">New Round</button>
+  </div>
+</div>
+
+<!-- OVERLAY: Game result -->
+<div class="overlay" id="overlay-result">
+  <div class="overlay-box" id="overlay-box">
+    <div class="overlay-icon" id="ov-icon">🎉</div>
+    <div class="overlay-badge" id="ov-badge">⚡ Double Win!</div>
+    <div class="overlay-title" id="ov-title">X Wins!</div>
+    <div class="overlay-sub" id="ov-sub">Well played</div>
+    <div class="overlay-btns">
+      <button class="btn btn-primary" onclick="closeResult(); resetRound();">Play Again</button>
+      <button class="btn btn-ghost" onclick="closeResult(); clickMenu();">Main Menu</button>
+    </div>
+  </div>
+</div>
+
+<!-- OVERLAY: Generic prompt -->
+<div class="overlay" id="overlay-prompt">
+  <div class="prompt-box">
+    <div class="prompt-title" id="prompt-title">Are you sure?</div>
+    <div class="prompt-sub" id="prompt-sub"></div>
+    <div class="prompt-btns" id="prompt-btns"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
